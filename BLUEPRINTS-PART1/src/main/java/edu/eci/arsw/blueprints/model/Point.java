@@ -38,6 +38,19 @@ public class Point {
         this.y = y;
     }
     
-    
+    @Override
+    public boolean equals(Object o){
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Point p2 = (Point) o;
+        return p2.getX() == getX() && p2.getY() == getY();
+    }
     
 }
