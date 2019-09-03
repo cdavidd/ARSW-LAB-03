@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.blueprints.services;
 
+import edu.eci.arsw.blueprints.filter.BlueprintFilter;
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
@@ -23,10 +24,15 @@ import org.springframework.stereotype.Service;
  */
 @Service("BlueprintsServices")
 public class BlueprintsServices {
+
     @Qualifier("InMemoryBlueprintPersistence")
     @Autowired
-    //BlueprintsPersistence bpp=null;
     BlueprintsPersistence bpp;
+
+    @Qualifier("")
+    @Autowired
+    BlueprintFilter bppFilter;
+
     public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
         bpp.saveBlueprint(bp);
     }
