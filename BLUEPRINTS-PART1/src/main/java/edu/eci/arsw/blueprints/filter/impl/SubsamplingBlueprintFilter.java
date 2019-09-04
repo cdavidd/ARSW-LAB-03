@@ -14,9 +14,10 @@ public class SubsamplingBlueprintFilter implements BlueprintFilter {
     @Override
     public Blueprint filter(Blueprint blueprint) {
         List<Point> points = blueprint.getPoints();
-        Point newPoints[] = new Point[points.size()/2];
+        Point newPoints[] = new Point[points.size()/2 + points.size() % 2];
+        int index = 0;
         for (int i = 0; i < points.size() ; i += 2){
-            newPoints[i] = points.get(i);
+            newPoints[index++] = points.get(i);
         }
         return new Blueprint(blueprint.getAuthor(),blueprint.getName(),newPoints);
     }
