@@ -11,6 +11,8 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +31,7 @@ public class BlueprintsServices {
     @Autowired
     BlueprintsPersistence bpp;
 
-    @Qualifier("")
+    @Qualifier("subsampling")
     @Autowired
     BlueprintFilter bppFilter;
 
@@ -38,7 +40,11 @@ public class BlueprintsServices {
     }
     
     public Set<Blueprint> getAllBlueprints(){
-        return bpp.getAllBlueprints();
+        Set<Blueprint> filterSet = new HashSet<>();
+        for (Blueprint blueprint: bpp.getAllBlueprints()){
+            filterSet.add(bppFilter.filter(blueprint));
+        }
+        return filterSet;
     }
     
     /**
@@ -49,7 +55,7 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if there is no such blueprint
      */
     public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
-        return bpp.getBlueprint(author, name);
+        return bppFilter.filter(bpp.getBlueprint(author, name));
     }
     
     /**
@@ -59,7 +65,11 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        return bpp.getBlueprintsByAuthor(author);
+        Set<Blueprint> filterSet = new HashSet<>();
+        for (Blueprint blueprint: bpp.getBlueprintsByAuthor(author)){
+            filterSet.add(bppFilter.filter(blueprint));
+        }
+        return filterSet;
     }
     
 }

@@ -58,5 +58,10 @@ public class Point {
         Point p2 = (Point) o;
         return p2.getX() == getX() && p2.getY() == getY();
     }
+
+    @Override
+    public String toString(){
+        return "x: "+x +" y: " + y;
+    }
     
 }

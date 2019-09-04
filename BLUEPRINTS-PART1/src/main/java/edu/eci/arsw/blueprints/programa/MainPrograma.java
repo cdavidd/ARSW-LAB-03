@@ -32,6 +32,8 @@ public class MainPrograma {
         Blueprint bp2=new Blueprint("juanes", "thepaint2.0",pts2);
         Point[] pts3=new Point[]{new Point(3, 3),new Point(13, 13)};
         Blueprint bp3=new Blueprint("juanes", "thestatue2.0",pts2);
+        Point[] pts4=new Point[]{new Point(3, 3),new Point(13, 17),new Point(3,3),new Point(3,4)};
+        Blueprint bp4=new Blueprint("ronaldo", "escultura",pts4);
         
         bps.addNewBlueprint(bp);
         System.out.println("Añadiendo "+bp);
@@ -43,6 +45,8 @@ public class MainPrograma {
         System.out.println("Añadiendo "+bp2);
         bps.addNewBlueprint(bp3);
         System.out.println("Añadiendo "+bp3);
+        bps.addNewBlueprint(bp4);
+        System.out.println("Añadiendo "+bp4);
         System.out.println();
         System.out.println("Obteniendo la blueprint john/thepaint");
         System.out.println(bps.getBlueprint("john","thepaint"));
@@ -50,7 +54,11 @@ public class MainPrograma {
         System.out.println(bps.getBlueprintsByAuthor("juanes"));
         System.out.println("Obteniendo todas las blueprints");
         System.out.println(bps.getAllBlueprints());
-        
+
+        System.out.println();
+
+        System.out.println("Probando filtros");
+        System.out.println("BPS4 " + bp4 + " " + bps.getBlueprint("ronaldo","escultura").getPoints());
     }
     
 }
