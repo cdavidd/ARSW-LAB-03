@@ -37,7 +37,13 @@ public class Point {
     public void setY(int y) {
         this.y = y;
     }
-    
+
+    @Override
+    public int hashCode(){
+        int tmp = ( y +  ((x+1)/2));
+        return x +  ( tmp * tmp);
+    }
+
     @Override
     public boolean equals(Object o){
         if (this == o) {
