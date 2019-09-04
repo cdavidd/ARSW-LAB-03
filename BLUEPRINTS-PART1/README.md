@@ -186,7 +186,88 @@ Entrar al directorio `ARSW-LAB-03/BLUEPRINTS-PART1`:
 4. *Add the corresponding tests to each of these filters, and test its operation in the test program, verifying that only by changing the position of the annotations - without changing anything else - the program returns the filtered planes in the way (A) or in the way (B).*
 
     Clase `RedundancyBlueprintFilterTest`:
+    ```java
+    public class RedundancyBlueprintFilterTest {
+
+        @Test
+        public void filterRepeated(){
+            RedundancyBlueprintFilter redundancyBlueprintFilter = new RedundancyBlueprintFilter();
+
+            Point points[] = {new Point(1,1),
+                    new Point(1,1),
+                    new Point(1,1),
+                    new Point(3,5),
+                    new Point(4,7)};
+
+            List<Point> pointsExpected = new ArrayList<>();
+            pointsExpected.add(new Point(1,1));
+            pointsExpected.add(new Point(3,5));
+            pointsExpected.add(new Point(4,7));
+
+            int before = points.length;
+            Blueprint blueprint = new Blueprint("John","ppaint",points);
+            blueprint = redundancyBlueprintFilter.filter(blueprint);
+            assertTrue(before >= blueprint.getPoints().size());
+
+        }
+    }
+    ```
 
     Clase `SubsamplingBlueprintFilterTest`:
+    ```java
+
+    public class SubsamplingBlueprintFilterTest {
+
+        @Test
+        public void subsamplingFilteringOdd(){
+            SubsamplingBlueprintFilter subsamplingBlueprintFilter = new SubsamplingBlueprintFilter();
+            Point points[] = {new Point(1,1),
+                    new Point(15,1),
+                    new Point(2,1),
+                    new Point(3,5),
+                    new Point(4,7)};
+
+            List<Point> pointsExpected = new ArrayList<>();
+            pointsExpected.add(new Point(1,1));
+            pointsExpected.add(new Point(2,1));
+            pointsExpected.add(new Point(4,7));
+
+            Blueprint blueprint = new Blueprint("David","elcarro",points);
+            blueprint = subsamplingBlueprintFilter.filter(blueprint);
+            assertTrue(blueprint.getPoints().size() == pointsExpected.size());
+            List<Point> ansPoint = blueprint.getPoints();
+            for (int i = 0; i < ansPoint.size(); i++){
+                assertEquals(ansPoint.get(i),pointsExpected.get(i));
+            }
+        }
+
+        @Test
+        public void subsamplingFilteringEven(){
+            SubsamplingBlueprintFilter subsamplingBlueprintFilter = new SubsamplingBlueprintFilter();
+            Point points[] = {new Point(1,1),
+                    new Point(15,1),
+                    new Point(2,1),
+                    new Point(3,5),
+                    };
+
+            List<Point> pointsExpected = new ArrayList<>();
+            pointsExpected.add(new Point(1,1));
+            pointsExpected.add(new Point(2,1));
+
+            Blueprint blueprint = new Blueprint("David","elcarro",points);
+            blueprint = subsamplingBlueprintFilter.filter(blueprint);
+            assertTrue(blueprint.getPoints().size() == pointsExpected.size());
+            List<Point> ansPoint = blueprint.getPoints();
+            for (int i = 0; i < ansPoint.size(); i++){
+                assertEquals(ansPoint.get(i),pointsExpected.get(i));
+            }
+        }
+    }
+
+    ```
 
     Clase `MainPrograma`:
+    ```java
+    System.out.println("Probando filtros");
+        System.out.println("BPS4 " + bp4 + " " + bps.getBlueprint("ronaldo","escultura").getPoints());
+    ``` 
